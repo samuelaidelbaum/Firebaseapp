@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+<body ng-app="app">
+ <section class="new-customer-form" ng-controller="ContactCtrl as ctrl" style="width:500px;">
+     
+     <h1>Add Contact</h1>
+     
+     <form ng-submit="ctrl.addContact(ctrl.newContact)">
+         
+         <div class="form-group">
+             
+             <label>First Name</label>
+             <input type="text" class="form-control" id="first-name" required ng-model="ctrl.newContact.firstName">
+            <label>Last Name</label>
+             <input type="text" class="form-control" id="last-name" required ng-model="ctrl.newContact.lastName">
+            <label>Phone Number</label>
+             <input type="text" class="form-control" id="number" required ng-model="ctrl.newContact.number">
+            <label>Email</label>
+             <input type="text" class="form-control" id="email" required ng-model="ctrl.newContact.email">
+            <label>Birthday</label>
+             <input type="date" class="form-control" id="birthday" ng-model="ctrl.newContact.birthDate">
+             <button type="submit" class="btn btn-primary">Add Contact</button>
+         </div>
+      </form>
+    </section>
+  <section class="customer-list" ng-controller="ContactCtrl as ctrl">
+     <span>{{ctrl.contacts.length}}</span>
+      
+      <div class="customer-list-item" ng-repeat="contact in ctrl.contacts | orderBy: ['lastName', 'firstName'] track by contact.$id">
+         <div class="list-item-row">
+         <h3>First Name</h3>
+        <input type="text" class="form-control" ng-model="contact.firstName">&nbsp;
+         <h3>Last Name</h3>
+        <input type="text" class="form-control" ng-model="contact.lastName">
+         <h3>Phone Number</h3>
+        <input type="text" class="form-control" ng-model="contact.number">
+         <h3>Email</h3>
+        <input type="text" class="form-control" ng-model="contact.email">
+      </div>  
+           <div class="list-item-row">
+           <h3>Birthday</h3>
+        <input type="date" class="form-control col-6" ng-model="contact.birthDate">
+        <div style="flex:1;"></div>
+        <button class="btn btn-outline-primary btn-sm" ng-click="ctrl.save(contact)">
+          Save
+        </button>&nbsp;
+        <button class="btn btn-outline-danger btn-sm" ng-click="ctrl.remove(contact)">
+          <span class="fa fa-trash"></span>
+        </button>
+      </div>
+      </div>
+  </section>
+   
+    
+     
+      
+  <!--Scripts-->     
+ <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+ <script src="js/app.js"></script>   
+</body>
+</html>
